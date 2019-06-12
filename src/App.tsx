@@ -1,16 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import { Provider } from "react-redux";
 import configureStore from "./configureStore";
-import AsyncApp from "./Containers/AsyncApp";
+import Root from "./Containers/Root";
 
 const store = configureStore();
 
-export default class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <AsyncApp />
-      </Provider>
-    );
-  }
+export default function App() {
+  return (
+    <Provider store={store}>
+      <Root />
+    </Provider>
+  );
 }
