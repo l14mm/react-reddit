@@ -1,10 +1,11 @@
 import { Dispatch } from "redux";
 import { PostsType } from "./Components/Posts";
-
-export const REQUEST_POSTS = "REQUEST_POSTS";
-export const RECEIVE_POSTS = "RECEIVE_POSTS";
-export const SELECT_SUBREDDIT = "SELECT_SUBREDDIT";
-export const INVALIDATE_SUBREDDIT = "INVALIDATE_SUBREDDIT";
+import {
+  SELECT_SUBREDDIT,
+  INVALIDATE_SUBREDDIT,
+  REQUEST_POSTS,
+  RECEIVE_POSTS
+} from "./types";
 
 export function selectSubreddit(subreddit: string) {
   return {
@@ -32,7 +33,7 @@ interface Child {
 }
 interface PostsJson {
   data: {
-    children: [Child];
+    children: Child[];
   };
 }
 
