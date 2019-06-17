@@ -3,10 +3,12 @@ import {
   SELECT_SUBREDDIT,
   INVALIDATE_SUBREDDIT,
   REQUEST_POSTS,
-  RECEIVE_POSTS
-} from "./actions";
+  RECEIVE_POSTS,
+  Actions
+} from "./types";
+import { PostsType } from "./Components/Posts";
 
-function selectedSubreddit(state = "reactjs", action) {
+function selectedSubreddit(state = "all", action: Actions) {
   switch (action.type) {
     case SELECT_SUBREDDIT:
       return action.subreddit;
@@ -15,13 +17,19 @@ function selectedSubreddit(state = "reactjs", action) {
   }
 }
 
+interface PostsState {
+  isFetching: boolean;
+  didInvalidate: boolean;
+  items: PostsType;
+}
+
 function posts(
-  state = {
+  state: PostsState = {
     isFetching: false,
     didInvalidate: false,
     items: []
   },
-  action
+  action: Actions
 ) {
   switch (action.type) {
     case INVALIDATE_SUBREDDIT:
@@ -45,11 +53,16 @@ function posts(
   }
 }
 
-function postsBySubreddit(state = {}, action) {
+function postsBySubreddit(
+  state: Record<string, PostsState> = {},
+  action: Actions
+) {
   switch (action.type) {
     case INVALIDATE_SUBREDDIT:
     case RECEIVE_POSTS:
     case REQUEST_POSTS:
+      // console.log("state", state);
+      // console.log("action.subreddit", action.subreddit);
       return Object.assign({}, state, {
         [action.subreddit]: posts(state[action.subreddit], action)
       });
