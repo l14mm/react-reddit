@@ -8,9 +8,9 @@ import {
 } from "../actions";
 import Picker from "../Components/Picker";
 import Posts, { PostsType } from "../Components/Posts";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles, Theme } from "@material-ui/core/styles";
 
-const styles = (theme: any) => ({
+const styles = (theme: Theme) => ({
   root: {
     padding: theme.spacing(0, 2)
   }
