@@ -1,9 +1,16 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import grey from "@material-ui/core/colors/grey";
-import { Card, CardContent, Typography, CardMedia } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  Typography,
+  CardMedia,
+  Link,
+  Theme
+} from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   post: {
     border: `1px solid ${theme.palette.divider}`,
     margin: theme.spacing(0.5, 0),
@@ -44,7 +51,9 @@ export interface PostType {
   thumbnail: string;
   ups: number;
   downs: number;
+  permalink: string;
 }
+
 export type PostsType = PostType[];
 
 interface PostsProps {
@@ -67,6 +76,7 @@ const renderThumbnail = (classes: any, thumbnail: string) => {
 };
 
 const Posts = (props: PostsProps) => {
+  console.log(props.posts);
   const classes = useStyles();
   return (
     <ul>
@@ -81,6 +91,7 @@ const Posts = (props: PostsProps) => {
               <Typography component="h5" variant="h5">
                 {post.title}
               </Typography>
+              <Link href={post.permalink}>{post.title}</Link>
               <Typography variant="subtitle1" color="textSecondary">
                 u/{post.author} - r/{post.subreddit}
               </Typography>
