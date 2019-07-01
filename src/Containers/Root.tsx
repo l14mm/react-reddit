@@ -5,13 +5,15 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { Router, Route } from "react-router";
+import createBrowserHistory from 'history/createBrowserHistory';
 
 const theme = createMuiTheme();
+const history = createBrowserHistory();
 
 export default function Root() {
   return (
     <MuiThemeProvider theme={theme}>
-      <Router>
+      <Router history={history}>
         <CssBaseline />
         <Header />
         <Route path="/" component={AsyncApp} />
