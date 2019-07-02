@@ -5,7 +5,8 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { Router, Route } from "react-router";
-import createBrowserHistory from 'history/createBrowserHistory';
+import createBrowserHistory from "history/createBrowserHistory";
+import Post from "./Post";
 
 const theme = createMuiTheme();
 const history = createBrowserHistory();
@@ -16,7 +17,11 @@ export default function Root() {
       <Router history={history}>
         <CssBaseline />
         <Header />
-        <Route path="/" component={AsyncApp} />
+        <Route exact path="/" component={AsyncApp} />
+        <Route
+          path="/r/:subreddit/comments/:commentId/:title"
+          component={Post}
+        />
         <Footer />
       </Router>
     </MuiThemeProvider>
