@@ -5,7 +5,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => ({
   appBar: {
@@ -32,24 +32,24 @@ const Header = () => {
       className={classes.appBar}
     >
       <Toolbar className={classes.toolbar}>
-        <Typography
-          variant="h6"
-          color="inherit"
-          noWrap
-          className={classes.toolbarTitle}
-        >
-          React Reddit
-        </Typography>
-        <nav>
-          <Link
-            variant="button"
-            color="textPrimary"
-            href="#"
-            className={classes.link}
+        <Link to="/">
+          <Typography
+            variant="h6"
+            color="inherit"
+            noWrap
+            className={classes.toolbarTitle}
           >
-            My Account
-          </Link>
-        </nav>
+            React Reddit
+          </Typography>
+        </Link>
+        <Link
+          // variant="button"
+          // color="textPrimary"
+          to="/"
+          className={classes.link}
+        >
+          My Account
+        </Link>
         <Button
           href="#"
           color="primary"

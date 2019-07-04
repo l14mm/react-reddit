@@ -6,9 +6,9 @@ import {
   CardContent,
   Typography,
   CardMedia,
-  Link,
   Theme
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => ({
   post: {
@@ -91,7 +91,7 @@ const Posts = (props: PostsProps) => {
               <Typography component="h5" variant="h5">
                 {post.title}
               </Typography>
-              <Link href={post.permalink}>{post.title}</Link>
+              <Link to={post.permalink}>{post.title}</Link>
               <Typography variant="subtitle1" color="textSecondary">
                 u/{post.author} - r/{post.subreddit}
               </Typography>
