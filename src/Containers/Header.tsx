@@ -18,7 +18,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1
   },
   link: {
-    margin: theme.spacing(1, 1.5)
+    margin: theme.spacing(1, 1.5),
+    textDecoration: "none",
+    color: theme.palette.text.primary
   }
 }));
 
@@ -32,7 +34,7 @@ const Header = () => {
       className={classes.appBar}
     >
       <Toolbar className={classes.toolbar}>
-        <Link to="/">
+        <Link className={classes.link} to="/">
           <Typography
             variant="h6"
             color="inherit"

@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: "center",
     justifyContent: "center",
     minWidth: 60
+  },
+  link: {
+    textDecoration: "none"
   }
 }));
 
@@ -81,23 +84,24 @@ const Posts = (props: PostsProps) => {
   return (
     <ul>
       {props.posts.map((post, i) => (
-        <Card className={classes.post} key={i}>
-          <div className={classes.votes}>
-            <Typography>{post.ups}</Typography>
-          </div>
-          {renderThumbnail(classes, post.thumbnail)}
-          <div className={classes.details}>
-            <CardContent className={classes.content}>
-              <Typography component="h5" variant="h5">
-                {post.title}
-              </Typography>
-              <Link to={post.permalink}>{post.title}</Link>
-              <Typography variant="subtitle1" color="textSecondary">
-                u/{post.author} - r/{post.subreddit}
-              </Typography>
-            </CardContent>
-          </div>
-        </Card>
+        <Link to={post.permalink} className={classes.link} key={i}>
+          <Card className={classes.post}>
+            <div className={classes.votes}>
+              <Typography>{post.ups}</Typography>
+            </div>
+            {renderThumbnail(classes, post.thumbnail)}
+            <div className={classes.details}>
+              <CardContent className={classes.content}>
+                <Typography component="h5" variant="h5">
+                  {post.title}
+                </Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  u/{post.author} - r/{post.subreddit}
+                </Typography>
+              </CardContent>
+            </div>
+          </Card>
+        </Link>
       ))}
     </ul>
   );
