@@ -22,6 +22,7 @@ interface ReceivePostsAction {
 interface ReceivePostAction {
   type: typeof RECEIVE_POST;
   post: string;
+  receivedAt: number;
 }
 
 interface InvalidateSubredditAction {
@@ -34,9 +35,15 @@ interface RequestPostsAction {
   subreddit: string;
 }
 
+interface RequestPostAction {
+  type: typeof REQUEST_POST;
+  subreddit: string;
+}
+
 export type Actions =
   | SelectSubredditAction
   | ReceivePostsAction
   | ReceivePostAction
   | InvalidateSubredditAction
-  | RequestPostsAction;
+  | RequestPostsAction
+  | RequestPostAction;

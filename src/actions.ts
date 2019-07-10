@@ -5,7 +5,8 @@ import {
   INVALIDATE_SUBREDDIT,
   REQUEST_POSTS,
   REQUEST_POST,
-  RECEIVE_POSTS
+  RECEIVE_POSTS,
+  RECEIVE_POST
 } from "./types";
 
 export function selectSubreddit(subreddit: string) {
@@ -39,6 +40,7 @@ function requestPost(subreddit: string) {
 interface Child {
   data: PostsType;
 }
+
 interface PostsJson {
   data: {
     children: Child[];
@@ -54,6 +56,15 @@ function receivePosts(subreddit: string, json: PostsJson) {
   };
 }
 
+function receivePost(query: string, json: [PostsJson]) {
+  return {
+    type: RECEIVE_POST,
+    query,
+    post: json[0].data.children[0].data,
+    receivedAt: Date.now()
+  };
+}
+
 function fetchPosts(subreddit: string) {
   return (dispatch: Dispatch<any>) => {
     dispatch(requestPosts(subreddit));
@@ -63,12 +74,12 @@ function fetchPosts(subreddit: string) {
   };
 }
 
-export const fetchPost = (post: string) => {
+export const fetchPost = (query: string) => {
   return (dispatch: Dispatch<any>) => {
-    dispatch(requestPost(post));
-    return fetch(`https://www.reddit.com/r/${post}.json`)
+    dispatch(requestPost(query));
+    return fetch(`https://www.reddit.com${query}.json`)
       .then(response => response.json())
-      .then(json => dispatch(receivePosts(post, json)));
+      .then(json => dispatch(receivePost(query, json)));
   };
 };
 
