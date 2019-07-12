@@ -3,7 +3,9 @@ import {
   SELECT_SUBREDDIT,
   INVALIDATE_SUBREDDIT,
   REQUEST_POSTS,
+  REQUEST_POST,
   RECEIVE_POSTS,
+  RECEIVE_POST,
   Actions
 } from "./types";
 import { PostsType } from "./Components/Posts";
@@ -41,11 +43,23 @@ function posts(
         isFetching: true,
         didInvalidate: false
       });
+    case REQUEST_POST:
+      return Object.assign({}, state, {
+        isFetching: true,
+        didInvalidate: false
+      });
     case RECEIVE_POSTS:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
         items: action.posts,
+        lastUpdated: action.receivedAt
+      });
+    case RECEIVE_POST:
+      return Object.assign({}, state, {
+        isFetching: false,
+        didInvalidate: false,
+        items: action.post,
         lastUpdated: action.receivedAt
       });
     default:
@@ -57,12 +71,19 @@ function postsBySubreddit(
   state: Record<string, PostsState> = {},
   action: Actions
 ) {
+  console.log(action);
   switch (action.type) {
+    case RECEIVE_POST:
+      return Object.assign({}, state, {
+        post: posts(state.post, action)
+      });
+    case REQUEST_POST:
+      return Object.assign({}, state, {
+        subreddit: posts(state.post, action)
+      });
     case INVALIDATE_SUBREDDIT:
     case RECEIVE_POSTS:
     case REQUEST_POSTS:
-      // console.log("state", state);
-      // console.log("action.subreddit", action.subreddit);
       return Object.assign({}, state, {
         [action.subreddit]: posts(state[action.subreddit], action)
       });
