@@ -79,7 +79,6 @@ const renderThumbnail = (classes: any, thumbnail: string) => {
 };
 
 const Posts = (props: PostsProps) => {
-  console.log(props.posts);
   const classes = useStyles();
   return (
     <ul>
