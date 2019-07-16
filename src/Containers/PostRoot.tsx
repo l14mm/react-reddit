@@ -55,7 +55,7 @@ class PostRoot extends Component<PostRootProps, PostRootState> {
     const { items, classes } = this.props;
     return (
       <div className={classes.root}>
-        <Post match={this.props.match} items={items} />
+        <Post items={items} />
       </div>
     );
   }
