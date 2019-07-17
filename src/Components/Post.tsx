@@ -37,6 +37,14 @@ const styles = (theme: Theme) => ({
   link: {
     padding: theme.spacing(0, 2),
     textDecoration: "none"
+  },
+  votes: {
+    display: "flex",
+    flexDirection: "column" as "column",
+    margin: 5,
+    textAlign: "center" as "center",
+    justifyContent: "center",
+    minWidth: 60
   }
 });
 
@@ -52,11 +60,17 @@ const Post = (props: PostProps) => {
   return (
     <Link className={classes.link} href={items.url} target="_blank">
       <Card className={classes.post}>
+        <div className={classes.votes}>
+          <Typography>{items.ups}</Typography>
+        </div>
         <CardMedia className={classes.thumbnail} image={items.thumbnail} />
         <div className={classes.details}>
           <CardContent className={classes.content}>
             <Typography component="h5" variant="h5">
               {items.title}
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary">
+              u/{items.author} - r/{items.subreddit}
             </Typography>
           </CardContent>
         </div>
