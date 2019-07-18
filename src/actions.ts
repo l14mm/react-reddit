@@ -56,11 +56,12 @@ function receivePosts(subreddit: string, json: PostsJson) {
   };
 }
 
-function receivePost(query: string, json: [PostsJson]) {
+function receivePost(query: string, json: [PostsJson, PostsJson]) {
   return {
     type: RECEIVE_POST,
     query,
     post: json[0].data.children[0].data,
+    comments: json[1].data.children.map(child => child.data),
     receivedAt: Date.now()
   };
 }

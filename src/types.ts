@@ -22,6 +22,7 @@ interface ReceivePostsAction {
 interface ReceivePostAction {
   type: typeof RECEIVE_POST;
   post: string;
+  comments: string;
   receivedAt: number;
 }
 

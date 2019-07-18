@@ -60,6 +60,7 @@ function posts(
         isFetching: false,
         didInvalidate: false,
         items: action.post,
+        comments: action.comments,
         lastUpdated: action.receivedAt
       });
     default:
@@ -71,7 +72,6 @@ function postsBySubreddit(
   state: Record<string, PostsState> = {},
   action: Actions
 ) {
-  console.log(action);
   switch (action.type) {
     case RECEIVE_POST:
       return Object.assign({}, state, {
