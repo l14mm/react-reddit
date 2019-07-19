@@ -51,31 +51,52 @@ const styles = (theme: Theme) => ({
 export interface PostProps {
   classes: Classes;
   items: any;
+  comments: any;
 }
 
 const Post = (props: PostProps) => {
-  const { classes, items } = props;
-  items && console.log("1234", items);
+  const { classes, items, comments } = props;
+  items && console.log("items", items);
+  comments && console.log("comments", comments);
 
   return (
-    <Link className={classes.link} href={items.url} target="_blank">
-      <Card className={classes.post}>
-        <div className={classes.votes}>
-          <Typography>{items.ups}</Typography>
-        </div>
-        <CardMedia className={classes.thumbnail} image={items.thumbnail} />
-        <div className={classes.details}>
-          <CardContent className={classes.content}>
-            <Typography component="h5" variant="h5">
-              {items.title}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary">
-              u/{items.author} - r/{items.subreddit}
-            </Typography>
-          </CardContent>
-        </div>
-      </Card>
-    </Link>
+    <>
+      <Link className={classes.link} href={items.url} target="_blank">
+        <Card className={classes.post}>
+          <div className={classes.votes}>
+            <Typography>{items.ups}</Typography>
+          </div>
+          <CardMedia className={classes.thumbnail} image={items.thumbnail} />
+          <div className={classes.details}>
+            <CardContent className={classes.content}>
+              <Typography component="h5" variant="h5">
+                {items.title}
+              </Typography>
+              <Typography variant="subtitle1" color="textSecondary">
+                u/{items.author} - r/{items.subreddit}
+              </Typography>
+            </CardContent>
+          </div>
+        </Card>
+      </Link>
+      {comments.map((comment: any) => (
+        <Card className={classes.post} key={comment.id}>
+          <div className={classes.votes}>
+            <Typography>{comment.ups}</Typography>
+          </div>
+          <div className={classes.details}>
+            <CardContent className={classes.content}>
+              <Typography component="h5" variant="h5">
+                {comment.body}
+              </Typography>
+              <Typography variant="subtitle1" color="textSecondary">
+                u/{comment.author}
+              </Typography>
+            </CardContent>
+          </div>
+        </Card>
+      ))}
+    </>
   );
 };
 

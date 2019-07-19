@@ -21,6 +21,7 @@ export interface PostRootProps {
   classes: any;
   match: any;
   items: any;
+  comments: any;
 }
 
 interface PostsBySubreddit {
@@ -28,6 +29,7 @@ interface PostsBySubreddit {
     isFetching: boolean;
     lastUpdated: number;
     items: PostsType;
+    comments: any;
   };
 }
 
@@ -52,10 +54,10 @@ class PostRoot extends Component<PostRootProps, PostRootState> {
   }
 
   public render() {
-    const { items, classes } = this.props;
+    const { items, classes, comments } = this.props;
     return (
       <div className={classes.root}>
-        <Post items={items} />
+        <Post items={items} comments={comments} />
       </div>
     );
   }
@@ -64,7 +66,8 @@ class PostRoot extends Component<PostRootProps, PostRootState> {
 function mapStateToProps(state: PostRootState) {
   const { postsBySubreddit } = state;
   return {
-    items: postsBySubreddit.post ? postsBySubreddit.post.items : []
+    items: postsBySubreddit.post ? postsBySubreddit.post.items : [],
+    comments: postsBySubreddit.post ? postsBySubreddit.post.comments : []
   };
 }
 
