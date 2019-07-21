@@ -45,6 +45,9 @@ const styles = (theme: Theme) => ({
     textAlign: "center" as "center",
     justifyContent: "center",
     minWidth: 60
+  },
+  indent: {
+    marginLeft: "20px"
   }
 });
 
@@ -79,22 +82,47 @@ const Post = (props: PostProps) => {
           </div>
         </Card>
       </Link>
-      {comments.map((comment: any) => (
-        <Card className={classes.post} key={comment.id}>
-          <div className={classes.votes}>
-            <Typography>{comment.ups}</Typography>
-          </div>
-          <div className={classes.details}>
-            <CardContent className={classes.content}>
-              <Typography component="h5" variant="h5">
-                {comment.body}
-              </Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                u/{comment.author}
-              </Typography>
-            </CardContent>
-          </div>
-        </Card>
+      {comments.slice(0, 2).map((comment: any) => (
+        <>
+          <Card className={classes.post} key={comment.id}>
+            <div className={classes.votes}>
+              <Typography>{comment.ups}</Typography>
+            </div>
+            <div className={classes.details}>
+              <CardContent className={classes.content}>
+                <Typography component="h5" variant="h5">
+                  {comment.body}
+                </Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  u/{comment.author}
+                </Typography>
+              </CardContent>
+            </div>
+          </Card>
+          {comment.replies.data.children
+            .slice(0, 2)
+            .map((reply: any) => reply.data)
+            .map((reply: any) => (
+              <Card
+                className={`${classes.post} ${classes.indent}`}
+                key={reply.id}
+              >
+                <div className={classes.votes}>
+                  <Typography>{reply.ups}</Typography>
+                </div>
+                <div className={classes.details}>
+                  <CardContent className={classes.content}>
+                    <Typography component="h5" variant="h5">
+                      {reply.body}
+                    </Typography>
+                    <Typography variant="subtitle1" color="textSecondary">
+                      u/{reply.author}
+                    </Typography>
+                  </CardContent>
+                </div>
+              </Card>
+            ))}
+        </>
       ))}
     </>
   );
