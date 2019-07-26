@@ -9,12 +9,22 @@ import {
 } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
 import { Classes } from "@material-ui/styles/mergeClasses/mergeClasses";
+import Comment from "./Comment";
 
 const styles = (theme: Theme) => ({
   post: {
     border: `1px solid ${theme.palette.divider}`,
     margin: theme.spacing(0.5, 0),
     backgroundColor: grey[200],
+    display: "flex",
+    "&:hover": {
+      borderColor: "black"
+    }
+  },
+  comment: {
+    border: `0.5px solid ${theme.palette.divider}`,
+    margin: theme.spacing(0.5, 0),
+    backgroundColor: grey[500],
     display: "flex",
     "&:hover": {
       borderColor: "black"
@@ -84,13 +94,13 @@ const Post = (props: PostProps) => {
       </Link>
       {comments.slice(0, 2).map((comment: any) => (
         <>
-          <Card className={classes.post} key={comment.id}>
+          <Card className={classes.comment} key={comment.id}>
             <div className={classes.votes}>
               <Typography>{comment.ups}</Typography>
             </div>
             <div className={classes.details}>
               <CardContent className={classes.content}>
-                <Typography component="h5" variant="h5">
+                <Typography component="h6" variant="h6">
                   {comment.body}
                 </Typography>
                 <Typography variant="subtitle1" color="textSecondary">
@@ -103,24 +113,13 @@ const Post = (props: PostProps) => {
             .slice(0, 2)
             .map((reply: any) => reply.data)
             .map((reply: any) => (
-              <Card
-                className={`${classes.post} ${classes.indent}`}
+              <Comment
                 key={reply.id}
-              >
-                <div className={classes.votes}>
-                  <Typography>{reply.ups}</Typography>
-                </div>
-                <div className={classes.details}>
-                  <CardContent className={classes.content}>
-                    <Typography component="h5" variant="h5">
-                      {reply.body}
-                    </Typography>
-                    <Typography variant="subtitle1" color="textSecondary">
-                      u/{reply.author}
-                    </Typography>
-                  </CardContent>
-                </div>
-              </Card>
+                id={reply.id}
+                ups={reply.ups}
+                body={reply.body}
+                author={reply.author}
+              />
             ))}
         </>
       ))}
