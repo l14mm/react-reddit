@@ -1,6 +1,6 @@
 import React from "react";
 import { withStyles, Theme } from "@material-ui/core/styles";
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Typography, ListItem, ListItemText } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
 import { Classes } from "@material-ui/styles/mergeClasses/mergeClasses";
 
@@ -14,15 +14,7 @@ const styles = (theme: Theme) => ({
       borderColor: "black"
     }
   },
-  comment: {
-    border: `0.5px solid ${theme.palette.divider}`,
-    margin: theme.spacing(0.5, 0),
-    backgroundColor: grey[500],
-    display: "flex",
-    "&:hover": {
-      borderColor: "black"
-    }
-  },
+  comment: {},
   details: {
     display: "flex",
     flexDirection: "column" as "column"
@@ -60,25 +52,49 @@ export interface CommentProps {
   ups: string;
   body: string;
   author: string;
+  replies: any;
+  indent: number;
 }
 
-const Comment = ({ classes, id, ups, body, author }: CommentProps) => {
+const Comment = ({
+  classes,
+  id,
+  ups,
+  body,
+  author,
+  replies,
+  indent
+}: CommentProps) => {
   return (
-    <Card className={`${classes.comment} ${classes.indent}`} key={id}>
-      <div className={classes.votes}>
-        <Typography>{ups}</Typography>
-      </div>
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h6" variant="h6">
-            {body}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            u/{author}
-          </Typography>
-        </CardContent>
-      </div>
-    </Card>
+    <>
+      <ListItem
+        style={{
+          marginLeft: `${20 * indent}px`
+        }}
+        key={id}
+      >
+        <div className={classes.votes}>
+          <Typography>{ups}</Typography>
+        </div>
+        <ListItemText primary={body} secondary={`u/${author}`} />
+      </ListItem>
+      {replies &&
+        replies.data.children
+          .slice(0, 2)
+          .map((reply: any) => reply.data)
+          .map((reply: any) => (
+            <Comment
+              classes={classes}
+              key={reply.id}
+              id={reply.id}
+              ups={reply.ups}
+              body={reply.body}
+              author={reply.author}
+              replies={reply.replies}
+              indent={indent + 1}
+            />
+          ))}
+    </>
   );
 };
 

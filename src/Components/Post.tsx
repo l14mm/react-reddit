@@ -5,7 +5,10 @@ import {
   CardMedia,
   Card,
   CardContent,
-  Typography
+  Typography,
+  List,
+  ListItem,
+  ListItemText
 } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
 import { Classes } from "@material-ui/styles/mergeClasses/mergeClasses";
@@ -21,15 +24,7 @@ const styles = (theme: Theme) => ({
       borderColor: "black"
     }
   },
-  comment: {
-    border: `0.5px solid ${theme.palette.divider}`,
-    margin: theme.spacing(0.5, 0),
-    backgroundColor: grey[500],
-    display: "flex",
-    "&:hover": {
-      borderColor: "black"
-    }
-  },
+  comment: {},
   details: {
     display: "flex",
     flexDirection: "column" as "column"
@@ -92,37 +87,36 @@ const Post = (props: PostProps) => {
           </div>
         </Card>
       </Link>
-      {comments.slice(0, 2).map((comment: any) => (
-        <>
-          <Card className={classes.comment} key={comment.id}>
-            <div className={classes.votes}>
-              <Typography>{comment.ups}</Typography>
-            </div>
-            <div className={classes.details}>
-              <CardContent className={classes.content}>
-                <Typography component="h6" variant="h6">
-                  {comment.body}
-                </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                  u/{comment.author}
-                </Typography>
-              </CardContent>
-            </div>
-          </Card>
-          {comment.replies.data.children
-            .slice(0, 2)
-            .map((reply: any) => reply.data)
-            .map((reply: any) => (
-              <Comment
-                key={reply.id}
-                id={reply.id}
-                ups={reply.ups}
-                body={reply.body}
-                author={reply.author}
+      <List component="nav" className={classes.root}>
+        {comments.slice(0, 2).map((comment: any) => (
+          <>
+            <ListItem className={classes.comment} key={comment.id}>
+              <div className={classes.votes}>
+                <Typography>{comment.ups}</Typography>
+              </div>
+              <ListItemText
+                primary={comment.body}
+                secondary={`u/${comment.author}`}
               />
-            ))}
-        </>
-      ))}
+            </ListItem>
+            {comment.replies.data.children
+              .slice(0, 2)
+              .map((reply: any) => reply.data)
+              .map((reply: any) => (
+                <Comment
+                  classes={classes}
+                  key={reply.id}
+                  id={reply.id}
+                  ups={reply.ups}
+                  body={reply.body}
+                  author={reply.author}
+                  replies={reply.replies}
+                  indent={1}
+                />
+              ))}
+          </>
+        ))}
+      </List>
     </>
   );
 };
