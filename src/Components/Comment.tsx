@@ -65,7 +65,7 @@ const Comment = ({
   replies,
   indent
 }: CommentProps) => {
-  return (
+  return !body ? null : (
     <>
       <ListItem
         style={{
