@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import { Typography, ListItem, ListItemText } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
@@ -65,9 +65,13 @@ const Comment = ({
   replies,
   indent
 }: CommentProps) => {
+  const [clicked, setClicked] = useState(false);
   return !body ? null : (
     <>
       <ListItem
+        onClick={() => {
+          setClicked(!clicked);
+        }}
         style={{
           marginLeft: `${20 * indent}px`
         }}
@@ -78,7 +82,8 @@ const Comment = ({
         </div>
         <ListItemText primary={body} secondary={`u/${author}`} />
       </ListItem>
-      {replies &&
+      {!clicked &&
+        replies &&
         replies.data.children
           .slice(0, 2)
           .map((reply: any) => reply.data)
