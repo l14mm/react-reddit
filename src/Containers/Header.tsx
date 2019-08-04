@@ -57,6 +57,11 @@ const Header = () => {
           color="primary"
           variant="outlined"
           className={classes.link}
+          onClick={() => {
+            const clientId = "OrJeH0ot_Zfl6Q";
+            const redirectUrl = "http://localhost:3000/redirect";
+            window.location.href = `https://www.reddit.com/api/v1/authorize?client_id=${clientId}&response_type=code&state=RANDOM_STRING&redirect_uri=${redirectUrl}&duration=permanent&scope=identity`;
+          }}
         >
           Login
         </Button>
