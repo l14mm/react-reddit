@@ -7,6 +7,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { Router, Route } from "react-router";
 import { createBrowserHistory } from "history";
 import PostRoot from "./PostRoot";
+import Redirect from "./Redirect";
 
 const theme = createMuiTheme();
 const history = createBrowserHistory();
@@ -18,6 +19,7 @@ export default function Root() {
         <CssBaseline />
         <Header />
         <Route exact path="/" component={AsyncApp} />
+        <Route exact path="/redirect" component={Redirect} />
         <Route
           path="/r/:subreddit/comments/:commentId/:title"
           component={PostRoot}
