@@ -67,7 +67,7 @@ const Post = (props: PostProps) => {
   items && console.log("items", items);
   comments && console.log("comments", comments);
 
-  return (
+  return !items ? null : (
     <>
       <Link className={classes.link} href={items.url} target="_blank">
         <Card className={classes.post}>

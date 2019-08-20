@@ -52,6 +52,7 @@ function receivePosts(subreddit: string, json: PostsJson) {
     type: RECEIVE_POSTS,
     subreddit,
     posts: json.data.children.map(child => child.data),
+    post: {},
     receivedAt: Date.now()
   };
 }

@@ -85,7 +85,8 @@ function postsBySubreddit(
     case RECEIVE_POSTS:
     case REQUEST_POSTS:
       return Object.assign({}, state, {
-        [action.subreddit]: posts(state[action.subreddit], action)
+        [action.subreddit]: posts(state[action.subreddit], action),
+        post: {}
       });
     default:
       return state;
